@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComicCraft - AI Comic Creator</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; margin: 0; padding: 40px 20px; color: #333; }
+        .container { max-width: 650px; margin: auto; background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #1a73e8; margin-bottom: 25px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: bold; margin-bottom: 8px; }
+        input[type="text"], textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+        textarea { resize: vertical; height: 100px; }
+        button { width: 100%; background: #1a73e8; color: white; border: none; padding: 14px; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+        button:hover { background: #1557b0; }
+        .error { color: #d93025; background: #fce8e6; padding: 10px; border-radius: 4px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 ComicCraft AI Creator</h1>
+        
+        {% if error %}
+        <div class="error">
+            <strong>Error:</strong> {{ error }}
+        </div>
+        {% endif %}
+
+        <form action="/generate" method="post">
+            <div class="form-group">
+                <label for="idea">Story Idea / Prompt:</label>
+                <textarea id="idea" name="idea" required placeholder="A boy finds a mysterious glowing crystal in an ancient forest..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="character">Character Name:</label>
+                <input type="text" id="character" name="character" required placeholder="e.g. Leo">
+            </div>
+
+            <div class="form-group">
+                <label for="location">Setting / Location:</label>
+                <input type="text" id="location" name="location" required placeholder="e.g. Enchanted Forest">
+            </div>
+
+            <div class="form-group">
+                <label for="tone">Tone:</label>
+                <input type="text" id="tone" name="tone" required placeholder="e.g. Adventurous, Humorous, Mysterious">
+            </div>
+
+            <div class="form-group">
+                <label for="art_style">Art Style:</label>
+                <input type="text" id="art_style" name="art_style" required placeholder="e.g. Manga, Superhero Comic, Watercolor">
+            </div>
+
+            <button type="submit">✨ Generate Comic Story</button>
+        </form>
+    </div>
+</body>
+</html>

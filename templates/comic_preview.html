@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComicCraft Preview</title>
+    <style>
+        :root { --ink: #18212b; --paper: #fffdf6; --yellow: #ffd84d; --red: #ef5b49; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #e7f1ed; margin: 0; padding: 28px 20px 48px; color: var(--ink); }
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+        .top-bar {
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btn {
+            background-color: var(--ink);
+            color: #ffffff;
+            padding: 10px 18px;
+            text-decoration: none;
+            border-radius: 3px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .btn:hover {
+            background-color: #35495b;
+        }
+        .comic-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+        .panel-card {
+            background: var(--paper);
+            border: 3px solid var(--ink);
+            border-radius: 4px;
+            padding: 14px;
+            box-shadow: 5px 5px 0 var(--ink);
+        }
+        .panel-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .panel-title {
+            margin: 0;
+            font-size: 1.15rem;
+            color: var(--ink);
+            text-transform: uppercase;
+        }
+        .sfx {
+            background: #fde047;
+            border: 2px solid #000;
+            padding: 4px 10px;
+            font-weight: 800;
+            border-radius: 4px;
+            transform: rotate(-3deg);
+            display: inline-block;
+        }
+        .image-container {
+            text-align: center;
+            margin: 15px 0;
+            background: #d5e5de;
+            border-radius: 2px;
+            overflow: hidden;
+            border: 2px solid var(--ink);
+            aspect-ratio: 3 / 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .dialogue-box {
+            position: relative;
+            width: fit-content;
+            max-width: 100%;
+            background: #ffffff;
+            border: 2px solid var(--ink);
+            padding: 11px 13px;
+            font-weight: 700;
+            line-height: 1.45;
+            margin: 12px 0 8px;
+            border-radius: 18px;
+            color: var(--ink);
+        }
+        .dialogue-box::after {
+            content: "";
+            position: absolute;
+            left: 20px;
+            bottom: -9px;
+            width: 14px;
+            height: 14px;
+            background: #ffffff;
+            border-right: 2px solid var(--ink);
+            border-bottom: 2px solid var(--ink);
+            transform: skew(-18deg) rotate(35deg);
+        }
+        .sfx { background: var(--red); color: white; border: 2px solid var(--ink); padding: 3px 8px; font-weight: 800; }
+        @media (max-width: 680px) { body { padding: 18px 12px 32px; } .top-bar { align-items: flex-start; flex-direction: column; gap: 12px; } .comic-grid { grid-template-columns: 1fr; gap: 18px; } .panel-card:last-child:nth-child(odd) { grid-column: auto; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <h1 style="margin: 0;">Comic Preview</h1>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <a href="{{ pdf_url }}" class="btn" download>Download Your Comic as PDF</a>
+                <a href="/" class="btn" style="background-color: #64748b;">Back to Creator</a>
+            </div>
+        </div>
+
+        <div class="comic-grid">
+        {% for panel in layout.panels %}
+        <div class="panel-card">
+            <div class="panel-header">
+                <h3 class="panel-title">Panel {{ panel.panel_number }} - {{ panel.stage or panel.panel_title or 'Action Scene' }}</h3>
+                {% if panel.sound_effect %}
+                <span class="sfx">{{ panel.sound_effect }}</span>
+                {% endif %}
+            </div>
+
+            <div class="image-container">
+                <img src="{{ panel.image_url }}" alt="Panel {{ panel.panel_number }}: {{ panel.stage or panel.panel_title }}" loading="lazy" />
+            </div>
+
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
