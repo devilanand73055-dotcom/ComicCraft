@@ -94,12 +94,7 @@ PANEL_SCRIPT = (
         "important_objects": "mysterious camera, station entrance",
         "characters_present": "Arjun and Kavin",
         "dialogues": ("Kavin: How did you know?",),
-        "narration": (
-            "Before sunset, Arjun and Kavin leave safely,\n"
-            "studying the camera's secret.\n\n"
-            "Arjun senses a bigger mystery. Suddenly,\n"
-            "the camera snaps a photo by itself!"
-        ),
+        "narration": "The mystery of the camera had only just begun...",
         "lighting": "Warm evening sunset light.",
         "mood": "relief and lingering mystery",
     },

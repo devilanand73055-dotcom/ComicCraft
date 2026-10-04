@@ -410,6 +410,8 @@ def generate_fallback_image(
         draw_camera(293, 337, 0.55)
 
     image = image.resize((width * 2, height * 2), Image.Resampling.LANCZOS)
+    top_strip_height = max(32, round(30 * min(image.width / 600, image.height / 400)))
+    ImageDraw.Draw(image).rectangle((0, 0, image.width, top_strip_height), fill=(255, 255, 255))
     image = apply_comic_lettering(image, panel_number, dialogue, narration)
 
     image.save(local_path, format="PNG", compress_level=6)
